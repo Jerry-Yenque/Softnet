@@ -33,9 +33,15 @@ namespace Management.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("DataConsent")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("InfoConsent")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
