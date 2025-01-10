@@ -91,7 +91,7 @@
                         <p class="card-text" style="font-size: 0.85rem;">
                             Brindamos soluciones y servicios para todo el ecosistema PKI (Infraestructura de Clave Pública) y su integración con los procesos electrónicos.
                         </p>
-                        <a href="http://www.soft-net.com.pe/identidad-digital/" class="btn btn-outline-primary btn-sm">
+                        <a href="" class="btn btn-outline-primary btn-sm">
                             Más información
                         </a>
                     </div>
@@ -106,7 +106,7 @@
                         <p class="card-text" style="font-size: 0.85rem;">
                             La solución de Facturación Electrónica permite realizar los procesos de emisión y recepción, cumpliendo con las especificaciones técnicas de SUNAT.
                         </p>
-                        <a href="http://www.soft-net.com.pe/facturacion-electronica/" class="btn btn-outline-primary btn-sm">
+                        <a href="" class="btn btn-outline-primary btn-sm">
                             Más información
                         </a>
                     </div>
@@ -121,7 +121,7 @@
                         <p class="card-text" style="font-size: 0.85rem;">
                             Implementamos estrategias digitales con herramientas como AuraPortal, logrando eficiencia y reducción de costos.
                         </p>
-                        <a href="http://www.soft-net.com.pe/automatizacion-de-procesos-a-traves-de-bpms/" class="btn btn-outline-primary btn-sm">
+                        <a href="" class="btn btn-outline-primary btn-sm">
                             Más información
                         </a>
                     </div>
@@ -136,7 +136,7 @@
                         <p class="card-text" style="font-size: 0.85rem;">
                             Ofrecemos servicios completos de análisis, diseño, construcción, soporte y mejora de proyectos de software.
                         </p>
-                        <a href="http://www.soft-net.com.pe/desarrollo-software/" class="btn btn-outline-primary btn-sm">
+                        <a href="" class="btn btn-outline-primary btn-sm">
                             Más información
                         </a>
                     </div>
@@ -267,6 +267,18 @@
                             font-size: 0.875rem;
                         }
 
+                        .form-success {
+                            display: none; /* Oculto por defecto */
+                            background-color: #d4edda;
+                            color: #155724;
+                            border-left: 4px solid #28a745;
+                            padding: 0.5rem 1rem;
+                            margin-top: 1rem;
+                            border-radius: 4px;
+                            font-size: 0.875rem;
+                            text-align: center;
+                        }
+
                         .text-center img {
                             margin-top: 20px; /* Espaciado superior para evitar contacto directo con el contenido superior */
                             transition: margin-top 0.3s ease; /* Suave animación cuando el espacio cambia */
@@ -318,11 +330,12 @@
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary">ENVIAR</button>
                         </div>
+                        <div id="formSuccessMessage" class="form-success">Formulario válido. Se enviará correctamente.</div>
                     </form>
 
                     <!-- Contenedor de la imagen -->
                     <div class="text-center">
-                        <a href="https://soft-net.com.pe/libro-de-reclamaciones/" target="_self">
+                        <a href="" target="_self">
                             <img src="https://soft-net.com.pe/wp-content/uploads/2022/05/libro-reclamaciones.jpg"
                                  alt="Libro de Reclamaciones"
                                  style="max-width: 100px; display: inline-block;">
@@ -330,7 +343,7 @@
                     </div>
 
                     <script>
-                        // Validar los checkboxes al enviar el formulario
+                        // Validar los checkboxes y mostrar mensajes al enviar el formulario
                         document.getElementById("contact-form").addEventListener("submit", function (e) {
                             let valid = true;
 
@@ -354,9 +367,43 @@
                                 infoConsentError.style.display = "none"; // Ocultar mensaje de error
                             }
 
+                            // Obtener los mensajes de éxito y error
+                            const successMessage = document.getElementById("formSuccessMessage");
+
                             // Si no pasa la validación, evitar envío del formulario
-                            if (!valid) {
-                                e.preventDefault(); // Evita que el formulario se envíe
+                            if (valid) {
+                                e.preventDefault(); // Evitar envío del formulario
+
+                                // Mostrar mensaje de éxito
+                                successMessage.style.display = "block";
+
+                                // Limpiar los campos del formulario
+                                const inputs = document.querySelectorAll("#contact-form input[type='text'], #contact-form input[type='email'], #contact-form input[type='checkbox']");
+                                inputs.forEach(input => {
+                                    if (input.type === "checkbox") {
+                                        input.checked = false; // Deseleccionar checkboxes
+                                    } else {
+                                        input.value = ""; // Borrar valores de texto y email
+                                    }
+                                });
+
+                                // Ajustar la posición dinámica de otros elementos, si es necesario
+                                const imageContainer = document.getElementById("imageContainer");
+                                if (imageContainer) {
+                                    imageContainer.style.marginTop = "100px"; // Ajustar margen cuando aparece el mensaje
+                                }
+
+                                // Ocultar el mensaje de éxito después de 3 segundos
+                                setTimeout(() => {
+                                    successMessage.style.display = "none";
+
+                                    // Restaurar el margen de la imagen
+                                    if (imageContainer) {
+                                        imageContainer.style.marginTop = "40px"; // Volver al margen original
+                                    }
+                                }, 3000);
+                            } else {
+                                e.preventDefault(); // Evitar envío del formulario si no es válido
                             }
                         });
                     </script>
